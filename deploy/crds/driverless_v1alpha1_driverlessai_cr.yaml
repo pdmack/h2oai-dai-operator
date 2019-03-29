@@ -1,7 +1,7 @@
 apiVersion: driverless.h2o.ai/v1alpha1
 kind: DriverlessAI
 metadata:
-  name: example-driverlessai
+  name: h2oai-driverlessai
 spec:
   # Add fields here
   size: 3

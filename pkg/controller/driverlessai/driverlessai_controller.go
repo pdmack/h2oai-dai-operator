@@ -136,7 +136,7 @@ func newPodForCR(cr *driverlessv1alpha1.DriverlessAI) *corev1.Pod {
 	}
 	return &corev1.Pod{
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      cr.Name + "-pod",
+			Name:      cr.Name + "-server",
 			Namespace: cr.Namespace,
 			Labels:    labels,
 		},
@@ -145,7 +145,8 @@ func newPodForCR(cr *driverlessv1alpha1.DriverlessAI) *corev1.Pod {
 				{
                                         Name:    "driverlessai-server",
                                         Image:   "quay.io/pdmack/h2oai-driverless-ai:1.5.4-cuda9.0",
-                                        Command: []string{"if nvidia-smi | grep -o failed || true; then ./run.sh; else nvidia-smi -pm 1 && ./run.sh; fi"},
+                                        Command: []string{"/bin/bash"},
+                                        Args:    []string{"-c","if nvidia-smi | grep -o failed || true; then ./run.sh; else nvidia-smi -pm 1 && ./run.sh; fi"},
 				},
 			},
 		},
