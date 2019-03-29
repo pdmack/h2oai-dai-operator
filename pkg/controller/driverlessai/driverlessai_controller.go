@@ -22,11 +22,6 @@ import (
 
 var log = logf.Log.WithName("controller_driverlessai")
 
-/**
-* USER ACTION REQUIRED: This is a scaffold file intended for the user to modify with their own Controller
-* business logic.  Delete these comments after modifying this file.*
- */
-
 // Add creates a new DriverlessAI Controller and adds it to the Manager. The Manager will set fields on the Controller
 // and Start it when the Manager is Started.
 func Add(mgr manager.Manager) error {
@@ -147,6 +142,12 @@ func newPodForCR(cr *driverlessv1alpha1.DriverlessAI) *corev1.Pod {
                                         Image:   "quay.io/pdmack/h2oai-driverless-ai:1.5.4-cuda9.0",
                                         Command: []string{"/bin/bash"},
                                         Args:    []string{"-c","if nvidia-smi | grep -o failed || true; then ./run.sh; else nvidia-smi -pm 1 && ./run.sh; fi"},
+                                        Ports: []corev1.ContainerPort{
+                                                   {
+                                                   Name: "http",
+                                                   ContainerPort: 10902,
+                                                   },
+				        },
 				},
 			},
 		},

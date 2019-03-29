@@ -15,7 +15,6 @@ spec:
       serviceAccountName: h2oai-dai-operator
       containers:
         - name: h2oai-dai-operator
-          # Replace this with the built image name
           image: quay.io/pdmack/h2oai-driverlessai-operator
           command:
           - h2oai-dai-operator
