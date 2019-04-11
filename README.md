@@ -16,17 +16,17 @@ Create a ConfigMap to store the license file and config
 
 `oc create configmap driverless --from-file=config/`
 
-Give the default SA in the new project privileged capability 
+Give the default service account in the new project privileged capability 
 
 `oc adm policy add-scc-to-user privileged -z default`
 
 Set up a local hostPath model storage. This step and the following may be modified to suit available PV or StorageClass options.
 
-`mkdir -p /tmp/h2oai-storage && chmod 777 /tmp/h2oai-storage`
+`mkdir -p /tmp/h2oai-dai-volume && chmod 777 /tmp/h2oai-dai-volume`
 
-Create a PV and PVC for the storage. The default setting is for 2Gi but you may need or want more storage.
+Create a PV and PVC for the storage. The default setting is for 10Gi but you may need or want more storage.
 
-`oc create -f h2oai-volume.json`
+`oc create -f deploy/pv.yaml`
 
-`oc create -f h2oai-claim.json`
+`oc create -f deploy/pvc.yaml`
 
